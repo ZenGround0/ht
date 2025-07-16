@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gem Theme Demo - Jewel Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gem & Jewel Theme Demo</h1>
+        
+        <div class="clue-content">
+            <p>This page demonstrates the gem and jewel-based styling for the new treasure hunt.</p>
+            <p>Each page can have a different gemstone theme by adding a class to the body tag:</p>
+            <ul style="list-style: none; padding: 0;">
+                <li>💎 Ruby (default)</li>
+                <li>💙 Sapphire: <code>class="sapphire-theme"</code></li>
+                <li>💚 Emerald: <code>class="emerald-theme"</code></li>
+                <li>💜 Amethyst: <code>class="amethyst-theme"</code></li>
+                <li>💛 Topaz: <code>class="topaz-theme"</code></li>
+                <li>💍 Diamond: <code>class="diamond-theme"</code></li>
+            </ul>
+        </div>
+        
+        <h2>Form Elements</h2>
+        
+        <form id="demoForm">
+            <input type="text" placeholder="Single word answer">
+            
+            <div class="word-inputs">
+                <input type="text" placeholder="First word">
+                <input type="text" placeholder="Second word">
+            </div>
+            
+            <button type="submit">Submit Answer</button>
+        </form>
+        
+        <div class="progress-buttons">
+            <button class="progress-btn">Continue Hunt</button>
+            <button class="progress-btn">Reset Progress</button>
+        </div>
+        
+        <div class="message success">Success message with glow effect!</div>
+        <div class="message error">Error message with red glow!</div>
+        
+        <details class="hint-container">
+            <summary>Need a hint?</summary>
+            <p>Hints appear here with a subtle jewel-like container and gold accent text.</p>
+        </details>
+        
+        <nav style="margin-top: 30px;">
+            <a href="#" class="nav-link" onclick="cycleTheme(); return false;">Click to Cycle Themes</a>
+        </nav>
+    </div>
+    
+    <script>
+        const themes = ['', 'sapphire-theme', 'emerald-theme', 'amethyst-theme', 'topaz-theme', 'diamond-theme'];
+        let currentTheme = 0;
+        
+        function cycleTheme() {
+            currentTheme = (currentTheme + 1) % themes.length;
+            document.body.className = themes[currentTheme];
+            
+            const themeName = themes[currentTheme] || 'ruby-theme (default)';
+            console.log('Switched to:', themeName);
+        }
+        
+        // Prevent form submission for demo
+        document.getElementById('demoForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('This is just a demo! The real hunt will validate answers.');
+        });
+    </script>
+</body>
+</html>

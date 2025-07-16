@@ -1,0 +1,423 @@
+/* Gem & Jewel Treasure Hunt Theme */
+
+/* Root variables for default jewel theme */
+:root {
+    /* Ruby theme (default) */
+    --gem-primary: #dc143c;
+    --gem-secondary: #8b0020;
+    --gem-accent: #ff69b4;
+    --gem-highlight: #ffb6c1;
+    --gem-shadow: #4b0013;
+    
+    /* Background gradients */
+    --gem-gradient: radial-gradient(ellipse at center, #2a0015 0%, #000000 100%);
+    --facet-gradient: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%);
+    
+    /* Text colors */
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --text-accent: #ffd700;
+    
+    /* UI colors */
+    --success-color: #50c878;
+    --error-color: #ff6b6b;
+    --hint-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* Gemstone color themes - add these classes to body for different pages */
+.sapphire-theme {
+    --gem-primary: #0f52ba;
+    --gem-secondary: #002fa7;
+    --gem-accent: #6495ed;
+    --gem-highlight: #87ceeb;
+    --gem-shadow: #000080;
+    --gem-gradient: radial-gradient(ellipse at center, #001a4d 0%, #000000 100%);
+}
+
+.emerald-theme {
+    --gem-primary: #50c878;
+    --gem-secondary: #006400;
+    --gem-accent: #00ff7f;
+    --gem-highlight: #90ee90;
+    --gem-shadow: #002200;
+    --gem-gradient: radial-gradient(ellipse at center, #001a0d 0%, #000000 100%);
+}
+
+.amethyst-theme {
+    --gem-primary: #9966cc;
+    --gem-secondary: #663399;
+    --gem-accent: #dda0dd;
+    --gem-highlight: #e6e6fa;
+    --gem-shadow: #2e0854;
+    --gem-gradient: radial-gradient(ellipse at center, #1a0033 0%, #000000 100%);
+}
+
+.topaz-theme {
+    --gem-primary: #ffc87c;
+    --gem-secondary: #ff8c00;
+    --gem-accent: #ffd700;
+    --gem-highlight: #fffacd;
+    --gem-shadow: #804000;
+    --gem-gradient: radial-gradient(ellipse at center, #332200 0%, #000000 100%);
+}
+
+.diamond-theme {
+    --gem-primary: #e0e0e0;
+    --gem-secondary: #c0c0c0;
+    --gem-accent: #ffffff;
+    --gem-highlight: #f8f8ff;
+    --gem-shadow: #4a4a4a;
+    --gem-gradient: radial-gradient(ellipse at center, #1a1a1a 0%, #000000 100%);
+    --text-primary: #333333;
+    --text-secondary: #555555;
+}
+
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background: var(--gem-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Sparkle animation background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20% 30%, white, transparent),
+        radial-gradient(2px 2px at 60% 70%, white, transparent),
+        radial-gradient(1px 1px at 90% 10%, white, transparent),
+        radial-gradient(1px 1px at 15% 80%, white, transparent);
+    background-size: 200% 200%;
+    animation: sparkle 10s linear infinite;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Container with gem-like border */
+.container {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--gem-primary);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+    box-shadow: 
+        0 0 30px var(--gem-primary),
+        inset 0 0 30px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+/* Facet effect on container */
+.container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: var(--facet-gradient);
+    transform: rotate(45deg);
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Typography */
+h1 {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 
+        0 0 10px var(--gem-primary),
+        0 0 20px var(--gem-primary),
+        0 0 30px var(--gem-primary);
+    background: linear-gradient(45deg, var(--gem-primary), var(--gem-highlight), var(--gem-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.5); }
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: var(--gem-highlight);
+    text-align: center;
+}
+
+/* Navigation */
+nav {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.nav-link {
+    color: var(--text-accent);
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid var(--text-accent);
+    border-radius: 20px;
+    display: inline-block;
+    transition: all 0.3s ease;
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.nav-link:hover {
+    background: var(--text-accent);
+    color: var(--gem-shadow);
+    box-shadow: 0 0 15px var(--text-accent);
+}
+
+/* Clue content */
+.clue-content {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 25px;
+    margin: 20px 0;
+    font-size: 1.1em;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+}
+
+.clue-content p {
+    margin-bottom: 15px;
+}
+
+.clue-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Form styles */
+form {
+    margin: 30px 0;
+    text-align: center;
+}
+
+input[type="text"] {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--gem-primary);
+    border-radius: 25px;
+    padding: 12px 20px;
+    font-size: 1em;
+    color: var(--text-primary);
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--gem-accent);
+    box-shadow: 0 0 20px var(--gem-accent);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Multi-word inputs */
+.word-inputs {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.word-inputs input {
+    flex: 1;
+    min-width: 150px;
+    margin: 5px;
+}
+
+/* Submit button - gem style */
+button[type="submit"] {
+    background: linear-gradient(135deg, var(--gem-primary), var(--gem-secondary));
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    font-size: 1.1em;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+button[type="submit"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.4),
+        0 0 25px var(--gem-primary),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+button[type="submit"]:hover::before {
+    left: 100%;
+}
+
+/* Progress buttons */
+.progress-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.progress-btn {
+    background: linear-gradient(135deg, var(--gem-secondary), var(--gem-shadow));
+    color: white;
+    border: 1px solid var(--gem-primary);
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1em;
+}
+
+.progress-btn:hover {
+    background: linear-gradient(135deg, var(--gem-primary), var(--gem-secondary));
+    box-shadow: 0 0 15px var(--gem-primary);
+}
+
+/* Messages */
+.message {
+    text-align: center;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 10px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.message.success {
+    background: rgba(80, 200, 120, 0.2);
+    border: 1px solid var(--success-color);
+    color: var(--success-color);
+    opacity: 1;
+    box-shadow: 0 0 20px var(--success-color);
+}
+
+.message.error {
+    background: rgba(255, 107, 107, 0.2);
+    border: 1px solid var(--error-color);
+    color: var(--error-color);
+    opacity: 1;
+    box-shadow: 0 0 20px var(--error-color);
+}
+
+/* Hint container */
+.hint-container {
+    background: var(--hint-bg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 30px;
+}
+
+.hint-container summary {
+    cursor: pointer;
+    color: var(--text-accent);
+    font-weight: bold;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hint-container summary::before {
+    content: '💎 ';
+    margin-right: 5px;
+}
+
+.hint-container[open] summary::before {
+    content: '✨ ';
+}
+
+.hint-container p {
+    margin-top: 15px;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+/* Final page celebration */
+.celebration {
+    text-align: center;
+    font-size: 3em;
+    margin: 30px 0;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .container {
+        padding: 25px;
+        margin: 20px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .word-inputs {
+        flex-direction: column;
+    }
+    
+    .word-inputs input {
+        width: 100%;
+    }
+}
