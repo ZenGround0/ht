@@ -81,6 +81,41 @@
             0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
             100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
+        
+        .victory-gallery {
+            margin: 40px 0;
+        }
+        
+        .victory-images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .victory-pic {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 30px #ffd700,
+                        0 0 60px var(--gem-primary);
+            transition: transform 0.3s ease;
+        }
+        
+        .victory-pic:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 50px #ffd700,
+                        0 0 100px var(--gem-primary);
+        }
+        
+        @media (max-width: 600px) {
+            .victory-pic {
+                width: 150px;
+                height: 150px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -99,6 +134,15 @@
         <div class="treasure-box">
             <h2 style="color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Congratulations, Master Jeweler!</h2>
             <p style="color: #444;">You've successfully collected all 13 precious gems and unlocked the ultimate treasure!</p>
+        </div>
+        
+        <div class="victory-gallery">
+            <h3 style="text-align: center; color: var(--text-accent); margin: 30px 0;">Your Fellow Treasure Hunters Celebrate!</h3>
+            <div class="victory-images">
+                <img src="htpics/FunnyBrina.jpeg" alt="Funny Brina Celebration" class="victory-pic">
+                <img src="htpics/WallWall.jpeg" alt="Wall Wall Victory" class="victory-pic">
+                <img src="htpics/CoolBrina.jpeg" alt="Cool Brina Success" class="victory-pic">
+            </div>
         </div>
         
         <div class="clue-content final-message">

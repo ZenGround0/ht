@@ -402,6 +402,33 @@ button[type="submit"]:hover::before {
     50% { transform: scale(1.2); }
 }
 
+/* Gotcha image styles */
+.gotcha-image {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.gotcha-pic {
+    max-width: 60%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 40px #ff0000,
+                0 0 80px #ff6600;
+    border: 3px solid #ff3366;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { 
+        box-shadow: 0 0 40px #ff0000, 0 0 80px #ff6600;
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 0 0 60px #ff0000, 0 0 100px #ff6600;
+        transform: scale(1.02);
+    }
+}
+
 /* Gallery styles */
 .gallery-container {
     margin: 40px 0;
