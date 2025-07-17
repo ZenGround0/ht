@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jewel Hunt 2025 - Welcome</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Jewel Hunt 2025!</h1>
+        
+        <div id="continueSection" class="continue-section" style="display: none;">
+            <p>Welcome back, treasure seeker! You have progress saved.</p>
+            <div class="progress-buttons">
+                <button id="continueBtn" class="progress-btn">Continue Hunt</button>
+                <button id="resetBtn" class="progress-btn">Reset Progress</button>
+            </div>
+        </div>
+        
+        <div class="clue-content">
+            <h2>The Quest Begins</h2>
+            <p>Greetings, intrepid explorer! You are about to embark on a dazzling journey through a world of precious gems and sparkling jewels.</p>
+            <p>Each riddle you solve will reveal another facet of this glittering adventure. From rubies to diamonds, from sapphires to emeralds, your path will shimmer with discovery.</p>
+            
+            <div class="instructions-section">
+                <h3>How to Play</h3>
+                <p>Navigate through 13 sparkling clues, each more brilliant than the last. Your answers will unlock the path forward.</p>
+                
+                <div style="background: rgba(255, 215, 0, 0.1); padding: 15px; border-radius: 10px; margin: 20px 0;">
+                    <h3>💎 Important: Answer Formats</h3>
+                    <p>Some puzzles require answers with <strong>multiple words</strong>. When you see multiple input boxes, enter each word in its own box.</p>
+                    <p>For example, if the answer is "golden treasure", you would enter:</p>
+                    <ul style="list-style: none; padding-left: 20px;">
+                        <li>✨ First box: golden</li>
+                        <li>✨ Second box: treasure</li>
+                    </ul>
+                </div>
+                
+                <h3>Treasure Hunter Tips</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li>💍 Answers are not case-sensitive</li>
+                    <li>💎 Don't include punctuation in your answers</li>
+                    <li>💙 Your progress is automatically saved</li>
+                    <li>💜 Look for hints hidden like gems in each puzzle</li>
+                    <li>💚 Each page sparkles with a different gemstone theme</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="start-section" style="text-align: center; margin-top: 30px;">
+            <p style="font-size: 1.2em; color: var(--text-accent);">Ready to uncover the treasures that await?</p>
+            <a href="clue1_crystal.html" class="nav-link" style="font-size: 1.3em; padding: 15px 40px;">Begin the Hunt!</a>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { sha256, decrypt } from './crypto-utils.js';
+        import { SECURE_CLUES_MAP } from './clues.js';
+        
+        const STORAGE_KEY = "jewelhunt2025_progress";
+        
+        function loadProgress() {
+            try { 
+                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; 
+            } catch { 
+                return []; 
+            }
+        }
+        
+        async function jumpTo(lastAnswer) {
+            const hash = await sha256(lastAnswer);
+            if (SECURE_CLUES_MAP[hash]) {
+                const nextPage = await decrypt(SECURE_CLUES_MAP[hash], lastAnswer);
+                if (nextPage) {
+                    window.location.href = nextPage;
+                }
+            }
+        }
+        
+        const progress = loadProgress();
+        const continueSection = document.getElementById('continueSection');
+        const continueBtn = document.getElementById('continueBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        if (progress.length > 0) {
+            continueSection.style.display = 'block';
+            continueBtn.onclick = async () => await jumpTo(progress[progress.length - 1]);
+            resetBtn.onclick = () => {
+                if (confirm('Are you sure you want to reset all progress? All your discovered gems will be lost!')) {
+                    localStorage.removeItem(STORAGE_KEY);
+                    window.location.reload();
+                }
+            };
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clue 4 - Jewel Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="amethyst-theme">
+    <div class="container">
+        <nav>
+            <a href="index.html" class="nav-link">Back to Start</a>
+        </nav>
+        
+        <h1>💜 The Amethyst Enigma</h1>
+        
+        <div class="clue-content">
+            <p>Now you're in the ice cream shop don't look down instead look at the sky.</p>
+            <p>Look for a bird of prey so swift only fiction can make her fly.</p>
+            <p>In between the grapes and globes she hangs but it's no chore.</p>
+            <p>Find her name before you go but please don't go to war.</p>
+        </div>
+        
+        <form id="clueForm">
+            <div class="word-inputs">
+                <input type="text" id="word1" placeholder="First word" required>
+                <input type="text" id="word2" placeholder="Second word" required>
+            </div>
+            <button type="submit">Submit Answer</button>
+        </form>
+        
+        <div id="message" class="message"></div>
+        
+        <details class="hint-container">
+            <summary>Need a hint?</summary>
+            <p>She's the fastest ship in the galaxy, made the Kessel Run in less than twelve parsecs...</p>
+        </details>
+    </div>
+    
+    <script type="module">
+        import { sha256, decrypt } from './crypto-utils.js';
+        import { SECURE_CLUES_MAP } from './clues.js';
+        
+        document.getElementById('clueForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const word1 = document.getElementById('word1').value.toLowerCase().trim();
+            const word2 = document.getElementById('word2').value.toLowerCase().trim();
+            const answer = `${word1}-${word2}`;
+            const messageDiv = document.getElementById('message');
+            
+            try {
+                const hash = await sha256(answer);
+                const encryptedData = SECURE_CLUES_MAP[hash];
+                
+                if (!encryptedData) {
+                    throw new Error('Incorrect answer');
+                }
+                
+                const nextPage = await decrypt(encryptedData, answer);
+                
+                // Update progress
+                let progress = JSON.parse(localStorage.getItem('jewelhunt2025_progress') || '[]');
+                if (!progress.includes(answer)) {
+                    progress.push(answer);
+                    localStorage.setItem('jewelhunt2025_progress', JSON.stringify(progress));
+                }
+                
+                messageDiv.textContent = 'Wonderful! The amethyst pulses with power...';
+                messageDiv.className = 'message success';
+                
+                setTimeout(() => {
+                    window.location.href = nextPage;
+                }, 1500);
+                
+            } catch (error) {
+                messageDiv.textContent = 'The amethyst stays dark. Try again!';
+                messageDiv.className = 'message error';
+                setTimeout(() => {
+                    messageDiv.textContent = '';
+                    messageDiv.className = 'message';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

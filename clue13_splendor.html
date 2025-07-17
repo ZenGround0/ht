@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Clue - Jewel Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="nav-link">Back to Start</a>
+        </nav>
+        
+        <h1>💎 The Final Ruby</h1>
+        
+        <div class="clue-content">
+            <p>How many blue mushrooms can you spot?</p>
+            <p>Only count the ones with both a cap and gills.</p>
+            <p>Once you've counted the treasure you've got.</p>
+            <p>This time I am for real.</p>
+        </div>
+        
+        <form id="clueForm">
+            <input type="text" id="answer" placeholder="Enter your answer" required>
+            <button type="submit">Submit Answer</button>
+        </form>
+        
+        <div id="message" class="message"></div>
+        
+        <details class="hint-container">
+            <summary>Need a hint?</summary>
+            <p>Count carefully... the answer is between 10 and 20...</p>
+        </details>
+    </div>
+    
+    <script type="module">
+        import { sha256, decrypt } from './crypto-utils.js';
+        import { SECURE_CLUES_MAP } from './clues.js';
+        
+        document.getElementById('clueForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const answer = document.getElementById('answer').value.toLowerCase().trim();
+            const messageDiv = document.getElementById('message');
+            
+            try {
+                const hash = await sha256(answer);
+                const encryptedData = SECURE_CLUES_MAP[hash];
+                
+                if (!encryptedData) {
+                    throw new Error('Incorrect answer');
+                }
+                
+                const nextPage = await decrypt(encryptedData, answer);
+                
+                // Update progress
+                let progress = JSON.parse(localStorage.getItem('jewelhunt2025_progress') || '[]');
+                if (!progress.includes(answer)) {
+                    progress.push(answer);
+                    localStorage.setItem('jewelhunt2025_progress', JSON.stringify(progress));
+                }
+                
+                messageDiv.textContent = 'MAGNIFICENT! All the jewels align in perfect harmony...';
+                messageDiv.className = 'message success';
+                
+                setTimeout(() => {
+                    window.location.href = nextPage;
+                }, 1500);
+                
+            } catch (error) {
+                messageDiv.textContent = 'The final gem resists. Try again!';
+                messageDiv.className = 'message error';
+                setTimeout(() => {
+                    messageDiv.textContent = '';
+                    messageDiv.className = 'message';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

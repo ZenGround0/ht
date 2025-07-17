@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasure Found! - Jewel Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Special celebration styling */
+        body {
+            animation: gemCycle 10s infinite;
+        }
+        
+        @keyframes gemCycle {
+            0%, 100% { background: var(--gem-gradient); }
+            16% { background: radial-gradient(ellipse at center, #001a4d 0%, #000000 100%); }
+            33% { background: radial-gradient(ellipse at center, #001a0d 0%, #000000 100%); }
+            50% { background: radial-gradient(ellipse at center, #1a0033 0%, #000000 100%); }
+            66% { background: radial-gradient(ellipse at center, #332200 0%, #000000 100%); }
+            83% { background: radial-gradient(ellipse at center, #1a1a1a 0%, #000000 100%); }
+        }
+        
+        .jewel-collection {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+            font-size: 3em;
+        }
+        
+        .jewel {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .jewel:nth-child(2) { animation-delay: 0.5s; }
+        .jewel:nth-child(3) { animation-delay: 1s; }
+        .jewel:nth-child(4) { animation-delay: 1.5s; }
+        .jewel:nth-child(5) { animation-delay: 2s; }
+        .jewel:nth-child(6) { animation-delay: 2.5s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .final-message {
+            text-align: center;
+            font-size: 1.3em;
+            line-height: 1.8;
+            margin: 30px 0;
+            color: var(--text-accent);
+        }
+        
+        .treasure-box {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 
+                0 0 50px #ffd700,
+                inset 0 0 50px rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .treasure-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+            transform: rotate(45deg);
+            animation: treasureShine 3s linear infinite;
+        }
+        
+        @keyframes treasureShine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="celebration">🏆 TREASURE FOUND! 🏆</h1>
+        
+        <div class="jewel-collection">
+            <span class="jewel">💎</span>
+            <span class="jewel">💙</span>
+            <span class="jewel">💚</span>
+            <span class="jewel">💜</span>
+            <span class="jewel">💛</span>
+            <span class="jewel">💍</span>
+        </div>
+        
+        <div class="treasure-box">
+            <h2 style="color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Congratulations, Master Jeweler!</h2>
+            <p style="color: #444;">You've successfully collected all 13 precious gems and unlocked the ultimate treasure!</p>
+        </div>
+        
+        <div class="clue-content final-message">
+            <p>Through ruby gates and sapphire riddles,</p>
+            <p>Past emerald mysteries and amethyst puzzles,</p>
+            <p>Over topaz temples and diamond trails,</p>
+            <p>Your brilliant mind never fails!</p>
+            <br>
+            <p>✨ You are now a certified Gem Hunter! ✨</p>
+        </div>
+        
+        <div class="progress-buttons">
+            <button class="progress-btn" onclick="shareVictory()">Share Your Victory</button>
+            <button class="progress-btn" onclick="resetHunt()">Play Again</button>
+        </div>
+        
+        <nav style="margin-top: 40px;">
+            <a href="index.html" class="nav-link">Return to Start</a>
+        </nav>
+    </div>
+    
+    <script>
+        // Celebration effects
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.style.position = 'fixed';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            sparkle.style.fontSize = Math.random() * 20 + 10 + 'px';
+            sparkle.style.opacity = '0';
+            sparkle.style.transition = 'all 2s ease-out';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.textContent = '✨';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.style.opacity = '1';
+                sparkle.style.transform = `translateY(-${Math.random() * 100 + 50}px) rotate(${Math.random() * 360}deg)`;
+            }, 10);
+            
+            setTimeout(() => {
+                sparkle.style.opacity = '0';
+            }, 1500);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 2000);
+        }
+        
+        // Create sparkles periodically
+        setInterval(createSparkle, 300);
+        
+        function shareVictory() {
+            const text = "I completed the Jewel Hunt 2025! 💎💙💚💜💛💍 Can you find all the gems?";
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Jewel Hunt Victory!',
+                    text: text
+                }).catch(err => console.log('Error sharing:', err));
+            } else {
+                alert(text + "\n\nCopy this message to share your achievement!");
+            }
+        }
+        
+        function resetHunt() {
+            if (confirm('Are you sure you want to reset your progress and play again?')) {
+                localStorage.removeItem('jewelhunt2025_progress');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>
