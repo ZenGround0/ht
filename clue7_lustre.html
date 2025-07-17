@@ -6,13 +6,13 @@
     <title>Clue 7 - Jewel Hunt</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="diamond-theme">
     <div class="container">
         <nav>
             <a href="index.html" class="nav-link">Back to Start</a>
         </nav>
         
-        <h1>💎 The Ruby Return</h1>
+        <h1>💍 The Diamond Trail</h1>
         
         <div class="clue-content">
             <p>Go down further where the dogs hang out.</p>
@@ -61,7 +61,7 @@
                     localStorage.setItem('jewelhunt2025_progress', JSON.stringify(progress));
                 }
                 
-                messageDiv.textContent = 'Perfect! The ruby flares with triumph...';
+                messageDiv.textContent = 'Perfect! The diamond flares with triumph...';
                 messageDiv.className = 'message success';
                 
                 setTimeout(() => {
@@ -69,7 +69,7 @@
                 }, 1500);
                 
             } catch (error) {
-                messageDiv.textContent = 'The ruby stays dim. Try again!';
+                messageDiv.textContent = 'The diamond stays dim. Try again!';
                 messageDiv.className = 'message error';
                 setTimeout(() => {
                     messageDiv.textContent = '';

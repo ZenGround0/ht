@@ -6,13 +6,13 @@
     <title>Clue 12 - Jewel Hunt</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="diamond-theme">
+<body class="topaz-theme">
     <div class="container">
         <nav>
             <a href="index.html" class="nav-link">Back to Start</a>
         </nav>
         
-        <h1>💍 The Diamond Discovery</h1>
+        <h1>The Topaz Finale</h1>
         
         <div class="clue-content">
             <p>This bus has a bunch of moons, chicken neighbors and a human name?</p>
@@ -54,7 +54,7 @@
                     localStorage.setItem('jewelhunt2025_progress', JSON.stringify(progress));
                 }
                 
-                messageDiv.textContent = 'Brilliant! The diamond blazes with light...';
+                messageDiv.textContent = 'Brilliant! The topaz blazes with the light of a million chickens...';
                 messageDiv.className = 'message success';
                 
                 setTimeout(() => {
@@ -62,7 +62,7 @@
                 }, 1500);
                 
             } catch (error) {
-                messageDiv.textContent = 'The diamond stays rough. Try again!';
+                messageDiv.textContent = 'The topaz stays rough in the compost. Try again!';
                 messageDiv.className = 'message error';
                 setTimeout(() => {
                     messageDiv.textContent = '';
