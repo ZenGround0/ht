@@ -75,6 +75,13 @@
     </div>
     
     <script type="module">
+        // Detect Brave browser and add class for CSS targeting
+        (async () => {
+            if (navigator.brave && await navigator.brave.isBrave()) {
+                document.body.classList.add('brave-browser');
+            }
+        })();
+        
         import { sha256, decrypt } from './crypto-utils.js';
         import { SECURE_CLUES_MAP } from './clues.js';
         
